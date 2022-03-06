@@ -1,48 +1,80 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
 
 library(shiny)
+library(shinyWidgets)
+library(shinythemes)
+library(plotly)
+library(tidyverse)
+library(tidyquant)
+library(shinydashboard)
+library(dplyr)
+
+  
+tickers <- c("FB","AMZN","NFLX","GOOG")
+
+prices <- tq_get(tickers, 
+                 get  = "stock.prices",
+                 from = today()-months(12),
+                 to   = today(),
+                 complete_cases = F) %>%
+  select(symbol,date,close)
+
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
+ui <- fluidPage(theme = shinytheme("cyborg"),
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("stonks"),
 
-    # Sidebar with a slider input for number of bins 
+    # Choosing stocks 
     sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+      sidebarPanel(width = 3,
+                   
+                   # Let user pick stocks
+                   pickerInput(
+                     inputId = "stocks",
+                     label = h4("Stocks"),
+                     choices = c(
+                       "Facebook"       = tickers[1], 
+                       "Amazon"         = tickers[2],
+                       "Netflix"        = tickers[3],
+                       "Google"         = tickers[4]),
+                     selected = tickers,   
+                     options = list(`actions-box` = TRUE), 
+                     multiple = T
+                   ),
         ),
-
-        # Show a plot of the generated distribution
+      
+        # Plot results
         mainPanel(
-           plotOutput("distPlot")
+          plotlyOutput("plot", height=800)
         )
-    )
+    
+  )
 )
 
-# Define server logic required to draw a histogram
+
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+    
+    # create output
+    output$plot <- renderPlotly({
+      
+       print(
+         ggplotly(prices %>%
+                    group_by(symbol) %>%
+                    mutate(init_close = if_else(date == min(date),close,NA_real_)) %>%
+                    mutate(value = round(100 * close / sum(init_close,na.rm=T),1)) %>%
+                    ungroup() %>%
+                    ggplot(aes(date, value,colour = symbol)) +
+                    geom_line(size = 1, alpha = .9) +
+                    theme_minimal(base_size=16) +
+                    theme(axis.title=element_blank(),
+                          plot.background = element_rect(fill = "black"),
+                          panel.background = element_rect(fill="black"),
+                          panel.grid = element_blank(),
+                          legend.text = element_text(colour="white"))
+                    )
+          )
+      })  
 }
 
 # Run the application 

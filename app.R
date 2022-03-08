@@ -71,8 +71,8 @@ server <- function(input, output) {
                     geom_line(size = 1, alpha = .9) +
                     theme_minimal(base_size=16) +
                     theme(axis.title=element_blank(),
-                          plot.background = element_rect(fill = "black"),
-                          panel.background = element_rect(fill="black"),
+                          plot.background = element_rect(fill = "#010779"),
+                          panel.background = element_rect(fill="#010779"),
                           panel.grid = element_blank(),
                           legend.text = element_text(colour="white"))
                     )

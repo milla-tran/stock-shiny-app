@@ -20,7 +20,10 @@ prices <- tq_get(tickers,
 
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(theme = shinytheme("sandstone"),
+ui <- fluidPage(theme = bslib::bs_theme(bg = "#010779", 
+                                        fg = "white", 
+                                        base_font = "Source Sans Pro"),
+                img(src='stockgraphic.jpg', align = "center"),
 
     # Application title
     titlePanel("Exploring Stocks!"),

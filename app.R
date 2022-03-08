@@ -8,17 +8,6 @@ library(tidyquant)
 library(shinydashboard)
 library(dplyr)
 
-
-
-library(shiny)
-library(shinyWidgets)
-library(shinythemes)
-library(plotly)
-library(tidyverse)
-library(tidyquant)
-library(shinydashboard)
-library(dplyr)
-
   
 tickers <- c("AAPL","MSFT","GOOG","AMZN","TSLA","PYPL","EA")
 
@@ -34,7 +23,7 @@ prices <- tq_get(tickers,
 ui <- fluidPage(theme = shinytheme("sandstone"),
 
     # Application title
-    titlePanel("stonks"),
+    titlePanel("Exploring Stocks!"),
 
     # Choosing stocks 
     sidebarLayout(

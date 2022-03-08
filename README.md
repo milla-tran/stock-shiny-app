@@ -1,5 +1,5 @@
 # stock-shiny-app
-This is a shiny app pertaining to stocks created by group 11. This items in this repository are made for group assignment 2. Group members: Milla Tran, Rose Civitts, Will Rice, and Colter Sizemore.
+This is a shiny app pertaining to stocks created by group 11. The items in this repository are made for group assignment 2. Group members include Milla Tran, Rose Civitts, Will Rice, and Colter Sizemore.
 
 The stock market can be just as risky as gambling. With uncertain choices and often large amounts of money on the line, people have attempted to 'figure out' the market for years. 
 

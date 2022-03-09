@@ -77,6 +77,7 @@ server <- function(input, output) {
                      axis.title = element_blank(),
                      axis.title.x = element_text(size = 20, colour = "white"),
                      axis.title.y = element_text(size = 20, colour = "white"),
+                     legend.title = element_text(colour="#010779", size=15),
                      plot.background = element_rect(fill = "#010779"),
                      panel.background = element_rect(fill="#010779"),
                      panel.grid = element_blank(),

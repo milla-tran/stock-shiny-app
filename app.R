@@ -1,4 +1,3 @@
-
 library(shiny)
 library(shinyWidgets)
 library(shinythemes)
@@ -8,22 +7,21 @@ library(tidyquant)
 library(shinydashboard)
 library(dplyr)
 
-  
+
 tickers <- c("AAPL","MSFT","GOOG","AMZN","TSLA","PYPL","EA")
 
 prices <- tq_get(tickers, 
                  get  = "stock.prices",
                  from = today()-months(12),
                  to   = today(),
-                 complete_cases = F) %>%
-  select(symbol,date,close)
+                 complete_cases = F) 
 
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(theme = bslib::bs_theme(bg = "#010779", 
                                         fg = "white", 
                                         base_font = "Source Sans Pro"),
-                img(src='stockgraphic.jpg', align = "center"),
+                
                 
                 # Application title
                 titlePanel("Stock Prices"),
@@ -51,13 +49,24 @@ ui <- fluidPage(theme = bslib::bs_theme(bg = "#010779",
                   ),
                   
                   # Plot results
+     
                   mainPanel(
-                    plotlyOutput("plot", height=800),
-                    
-                  )
-                  
-                )
+  
+                  tabsetPanel(
+                    tabPanel(
+                      "Price Levels", 
+                      plotlyOutput("plot", height = 800)
+                    ),
+    
+                    tabPanel("High Prices",
+                      plotlyOutput("highs", height = 800)
+                    ),
+    
+              )
+          ),
+    )
 )
+
 
 
 server <- function(input, output) {
@@ -72,18 +81,36 @@ server <- function(input, output) {
                ggplot(aes(date, value,colour = symbol)) +
                geom_line(size = 1, alpha = .9) +
                theme_minimal(base_size=16) +
-               labs(title = "Stock Prices over Time", x = "Date", y = "Price") +
-               theme(plot.title = element_text(size = 35, colour = "white"),
+               labs(title = "Stock Price Levels over Time", x = "Date", y = "Price") +
+               theme(plot.title = element_text(size = 35, colour = "white", family = "Source Sans Pro"),
                      axis.title = element_blank(),
-                     axis.title.x = element_text(size = 20, colour = "white"),
-                     axis.title.y = element_text(size = 20, colour = "white"),
+                     axis.title.x = element_text(size = 20, colour = "white", family = "Source Sans Pro"),
+                     axis.title.y = element_text(size = 20, colour = "white", family = "Source Sans Pro"),
                      legend.title = element_text(colour="#010779", size=15),
                      plot.background = element_rect(fill = "#010779"),
                      panel.background = element_rect(fill="#010779"),
                      panel.grid = element_blank(),
-                     legend.text = element_text(colour="white"))
+                     legend.text = element_text(colour="white", family = "Source Sans Pro"))
     )
-  })  
+  })
+  
+  output$highs <- renderPlotly({
+    ggplotly(prices %>% filter(symbol %in% input$stocks) %>% 
+               ggplot(aes(date, high, colour = symbol)) +
+               geom_line(size = 1, alpha = .9) +
+               theme_minimal(base_size=16) +
+               labs(title = "Stock Price Highs over Time", x = "Date", y = "Price") +
+               theme(plot.title = element_text(size = 35, colour = "white", family = "Source Sans Pro"),
+                     axis.title = element_blank(),
+                     axis.title.x = element_text(size = 20, colour = "white", family = "Source Sans Pro"),
+                     axis.title.y = element_text(size = 20, colour = "white", family = "Source Sans Pro"),
+                     legend.title = element_text(colour="#010779", size=15),
+                     plot.background = element_rect(fill = "#010779"),
+                     panel.background = element_rect(fill="#010779"),
+                     panel.grid = element_blank(),
+                     legend.text = element_text(colour="white", family = "Source Sans Pro"))
+             )
+  })
 }
 
 # Run the application 

@@ -55,11 +55,11 @@ ui <- fluidPage(theme = bslib::bs_theme(bg = "#010779",
                   tabsetPanel(
                     tabPanel(
                       "Price Levels", 
-                      plotlyOutput("plot", height = 800)
+                      plotlyOutput("plot", height = 600)
                     ),
     
                     tabPanel("High Prices",
-                      plotlyOutput("highs", height = 800)
+                      plotlyOutput("highs", height = 600)
                     ),
     
               )

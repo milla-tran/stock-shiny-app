@@ -11,5 +11,7 @@ This app has four features to assist users in answering the crucial "what-if" qu
 - Features a menu with a select panel with stock options such as Amazon and Netflix. 
 - Provides a graph of the prices with distinct colors so that the user can compare between various stocks.
 - Displays a reference line for mean price among the stocks featured. 
+- Allows selection of sectors, industries, and multiple individual stocks for enhanced analysis.
+
 
 We hope this app will help you make informed decisions and provide valuable insight into the positions and variance of different stocks on the market.

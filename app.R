@@ -81,7 +81,7 @@ server <- function(input, output) {
                ggplot(aes(date, value,colour = symbol)) +
                geom_line(size = 1, alpha = .9) +
                theme_minimal(base_size=16) +
-               labs(title = "Stock Price Levels over Time", x = "Date", y = "Price") +
+               labs(title = "Stock Price Levels over Time", x = "Date", y = "Price (indexed at 100)") +
                theme(plot.title = element_text(size = 35, colour = "white", family = "Source Sans Pro"),
                      axis.title = element_blank(),
                      axis.title.x = element_text(size = 20, colour = "white", family = "Source Sans Pro"),

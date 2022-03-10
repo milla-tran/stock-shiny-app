@@ -7,9 +7,10 @@ Many people regard success in the stock market as a game of pure luck. However, 
 
 This app has four features to assist users in answering the crucial "what-if" question when deciding how to invest.
 
-- Allows the user to select certain stocks in order to observe the trend of the prices of the chosen stocks.
+- Allows the user to select certain stocks in order to observe the trend of the indexed prices of the chosen stocks.
 - Features a menu with a select panel with stock options such as Amazon and Netflix. 
 - Provides a graph of the prices with distinct colors so that the user can compare between various stocks.
+- Allows the user to switch between two tabs that show various graphics. 
 - Displays a reference line for mean price among the stocks featured. 
 - Allows selection of sectors, industries, and multiple individual stocks for enhanced analysis.
 

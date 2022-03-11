@@ -12,7 +12,7 @@ This app has multiple features to assist users in answering the crucial "what-if
 - Allows the user to select a specific time frame they wish to study using a simple calendar view input. 
 - Provides graphics with distinct colors so that the user can compare between various stocks.
 - Allows the user to switch between two tabs that show the high prices and closing prices separately. 
-- Displays a dashed reference line exhibiting mean price among the stocks featured. 
+- Displays a dashed white reference line exhibiting mean closing price among the stock(s) selected. 
 
 
 We hope this app will help you make informed decisions and provide valuable insight into the positions and variance of different stocks on the market.

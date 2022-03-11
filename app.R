@@ -21,7 +21,7 @@ ui <- fluidPage(
   theme = bslib::bs_theme(bg = "black",
                           fg = "white",
                           base_font = "Source Sans Pro"),
-
+  
   
   # Application title
   titlePanel("Stock Prices"),
@@ -30,7 +30,7 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       width = 3,
-
+      
       
       selectInput(
         inputId = 'stocks',
@@ -76,8 +76,8 @@ ui <- fluidPage(
         tabPanel(
           "Closing Prices",  
           plotOutput('plot', height = 600),
-          )
-      
+        )
+        
       )
     ),
   )
@@ -131,13 +131,14 @@ server <- function(input, output) {
                 legend.text = element_text(colour="white", family = "Source Sans Pro"),
                 legend.background = element_rect(fill = "black"),
                 legend.key = element_blank())
-        )
+      )
     
     output$highs <- renderPlot(
       prices %>%
         group_by(symbol) %>%
         ggplot(aes(x = date, y = high, color = symbol)) + 
         geom_line(size=1, alpha = .9) +
+        geom_hline(yintercept=1082.323, linetype= "dashed", color= "white", size = 1) +
         labs(title = "Stock Price Highs Over Time", y = "Price", x = "Date", caption = "If blank, stock ticker is not valid") +
         theme(plot.title = element_text(size = 35, colour = "white", family = "Source Sans Pro"),
               axis.title = element_blank(),
@@ -150,11 +151,14 @@ server <- function(input, output) {
               legend.text = element_text(colour="white", family = "Source Sans Pro"),
               legend.background = element_rect(fill = "black"),
               legend.key = element_blank())
-        )
+    )
     
   }
   )
 }
 
+
+
 # Run the application
 shinyApp(ui = ui, server = server)
+

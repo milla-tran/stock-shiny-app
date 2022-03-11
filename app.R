@@ -9,6 +9,8 @@ library(dplyr)
 library(tseries)
 library(tsibble)
 library(ggthemes)
+library(ggplot2)
+library(quantmod)
 
 Stocks <- tq_exchange("NASDAQ")
 
@@ -21,7 +23,7 @@ ui <- fluidPage(
   theme = bslib::bs_theme(bg = "black",
                           fg = "white",
                           base_font = "Source Sans Pro"),
-
+  
   
   # Application title
   titlePanel("Stock Prices"),
@@ -30,7 +32,7 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       width = 3,
-
+      
       
       selectInput(
         inputId = 'stocks',
@@ -76,8 +78,8 @@ ui <- fluidPage(
         tabPanel(
           "Closing Prices",  
           plotOutput('plot', height = 600),
-          )
-      
+        )
+        
       )
     ),
   )
@@ -119,6 +121,7 @@ server <- function(input, output) {
           group_by(symbol) %>%
           ggplot(aes(x = date, y = close, color = symbol)) +
           geom_line(size=1) +
+          geom_hline(yintercept=264.5898, linetype= "dashed", color= "white", size = 1) +
           labs(title = "Stock Line Chart", y = "Closing Price", x = "Date", caption = "If blank, stock ticker is not valid") +
           theme(plot.title = element_text(size = 35, colour = "white", family = "Source Sans Pro"),
                 axis.title = element_blank(),
@@ -131,7 +134,7 @@ server <- function(input, output) {
                 legend.text = element_text(colour="white", family = "Source Sans Pro"),
                 legend.background = element_rect(fill = "black"),
                 legend.key = element_blank())
-        )
+      )
     
     output$highs <- renderPlot(
       prices %>%
@@ -150,7 +153,7 @@ server <- function(input, output) {
               legend.text = element_text(colour="white", family = "Source Sans Pro"),
               legend.background = element_rect(fill = "black"),
               legend.key = element_blank())
-        )
+    )
     
   }
   )

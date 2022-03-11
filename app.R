@@ -6,7 +6,7 @@ library(tidyverse)
 library(tidyquant)
 library(shinydashboard)
 library(dplyr)
-
+library(ggplot2)
 
 tickers <- c("AAPL","MSFT","GOOG","AMZN","TSLA","PYPL","EA")
 
@@ -49,22 +49,22 @@ ui <- fluidPage(theme = bslib::bs_theme(bg = "#010779",
                   ),
                   
                   # Plot results
-     
+                  
                   mainPanel(
-  
-                  tabsetPanel(
-                    tabPanel(
-                      "Price Levels", 
-                      plotlyOutput("plot", height = 600)
-                    ),
-    
-                    tabPanel("High Prices",
-                      plotlyOutput("highs", height = 600)
-                    ),
-    
-              )
-          ),
-    )
+                    
+                    tabsetPanel(
+                      tabPanel(
+                        "Price Levels", 
+                        plotlyOutput("plot", height = 600)
+                      ),
+                      
+                      tabPanel("High Prices",
+                               plotlyOutput("highs", height = 600)
+                      ),
+                      
+                    )
+                  ),
+                )
 )
 
 
@@ -80,6 +80,7 @@ server <- function(input, output) {
                ungroup() %>%
                ggplot(aes(date, value,colour = symbol)) +
                geom_line(size = 1, alpha = .9) +
+               geom_hline(yintercept=108.2409, linetype= "dashed", color= "white", size = 1) +
                theme_minimal(base_size=16) +
                labs(title = "Stock Price Levels over Time", x = "Date", y = "Price (indexed at 100)") +
                theme(plot.title = element_text(size = 35, colour = "white", family = "Source Sans Pro"),
@@ -109,7 +110,7 @@ server <- function(input, output) {
                      panel.background = element_rect(fill="#010779"),
                      panel.grid = element_blank(),
                      legend.text = element_text(colour="white", family = "Source Sans Pro"))
-             )
+    )
   })
 }
 

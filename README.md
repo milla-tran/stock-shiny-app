@@ -10,9 +10,10 @@ This app has multiple features to assist users in answering the crucial "what-if
 - Allows the user to select any number of stocks desired from our search feature in order to observe the trend of high prices and closing prices of the chosen stocks.
 - Features numerous stock options such as Amazon, Apple, and Microsoft.
 - Allows the user to select a specific time frame they wish to study using a simple calendar view input. 
-- Provides graphics with distinct colors so that the user can compare between various stocks.
+- Features an action button that allows the user to decide when they are finished inputting their desired stocks and dates. 
+- Provides graphics with distinct colors and a legend so that the user can compare between various stocks easily.
 - Allows the user to switch between two tabs that show the high prices and closing prices separately. 
-- Displays a dashed white reference line exhibiting mean closing price among the stock(s) selected. 
+- Displays a dashed white reference line exhibiting mean closing price for all stocks under NASDAQ that updates as the data is updated. 
 
 
 We hope this app will help you make informed decisions and provide valuable insight into the positions and variance of different stocks on the market.
